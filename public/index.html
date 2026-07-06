@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<style>@view-transition { navigation: auto; }</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LensGenz — A Community Magazine Worth Publishing In</title>
+<meta name="description" content="LensGenz is a community-powered magazine: submit your articles, photo galleries, and PDF magazines, and get published after a quick review." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="/" class="brand">Lens<span>Genz</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/explore.html">Explore</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions" id="navActions"></div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow reveal">A magazine written by its readers</p>
+      <h1 class="reveal">Everyone has a story worth <em>publishing</em>.</h1>
+      <p class="lede reveal">LensGenz is a community magazine — submit your articles, photo essays, and full PDF issues, and our editors review and publish the best of them for everyone to read.</p>
+      <div class="hero-actions reveal">
+        <a href="/signup.html" class="btn btn-primary">Start Publishing</a>
+        <a href="/explore.html" class="btn btn-outline">Explore Stories</a>
+      </div>
+    </div>
+    <div class="hero-art reveal">
+      <p class="quote">“An ordinary moment, told well, is the most extraordinary thing you can publish.”</p>
+    </div>
+  </div>
+</header>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Fresh off the desk</p>
+        <h2>Featured Articles</h2>
+      </div>
+      <a href="/explore.html?type=article" class="btn btn-ghost">View all →</a>
+    </div>
+    <div class="grid grid-4 reveal-stagger" id="articleGrid"></div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">In pictures</p>
+        <h2>Photo Galleries</h2>
+      </div>
+      <a href="/explore.html?type=gallery" class="btn btn-ghost">View all →</a>
+    </div>
+    <div class="grid grid-4 reveal-stagger" id="galleryGrid"></div>
+  </div>
+</section>
+
+<div class="quote-band">
+  <div class="wrap">
+    <blockquote class="reveal">“I never thought a hobby photo series I put together on a whim would end up published for thousands of people to see. LensGenz gave my work a home.”</blockquote>
+    <cite class="reveal">— A LensGenz contributor</cite>
+  </div>
+</div>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Full issues</p>
+        <h2>Community Magazines</h2>
+      </div>
+      <a href="/explore.html?type=magazine" class="btn btn-ghost">View all →</a>
+    </div>
+    <div class="grid grid-4 reveal-stagger" id="magazineGrid"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap center reveal">
+    <p class="eyebrow">Ready when you are</p>
+    <h2 style="max-width:640px;margin:0 auto 18px">Got something worth reading? Submit it and get reviewed within days.</h2>
+    <a href="/signup.html" class="btn btn-primary">Create your free account</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="color:#fff">Lens<span>Genz</span></div>
+        <p style="margin-top:14px;max-width:280px;color:rgba(250,245,238,0.72)">A community magazine for anyone with a story, a photo series, or an issue worth publishing.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="/explore.html?type=article">Articles</a></li>
+          <li><a href="/explore.html?type=gallery">Galleries</a></li>
+          <li><a href="/explore.html?type=magazine">Magazines</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Community</h4>
+        <ul>
+          <li><a href="/submit.html">Submit Your Work</a></li>
+          <li><a href="/about.html">About Us</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the loop</h4>
+        <p style="color:rgba(250,245,238,0.72);font-size:0.9rem">Get new issues and standout stories in your inbox.</p>
+        <form id="newsletterForm" style="display:flex;gap:8px;margin-top:10px">
+          <input type="email" placeholder="Email address" required style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.18);color:#fff" />
+          <button class="btn btn-primary btn-sm" type="submit">Join</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 LensGenz. Made by creators, for creators.</span>
+      <span>Have something to publish? <a href="/submit.html" style="color:var(--gold)">Submit your work →</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="/js/supabaseClient.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/cards.js"></script>
+<script src="/js/home.js"></script>
+<script src="/js/nav.js"></script>
+</body>
+</html>

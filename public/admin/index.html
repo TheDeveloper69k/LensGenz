@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<style>@view-transition { navigation: auto; }</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Overview — LensGenz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="/" class="brand">Lens<span>Genz</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/explore.html">Explore</a></li>
+    </ul>
+    <div class="nav-actions" id="navActions"></div>
+  </div>
+</nav>
+
+<div class="dash-shell">
+  <aside class="dash-sidebar">
+    <a href="/admin/index.html">📊 Overview</a>
+    <a href="/admin/queue.html">🗳️ Review Queue</a>
+    <a href="/admin/content.html">🗂️ All Content</a>
+    <a href="/admin/users.html">👥 Users</a>
+    <div class="side-title">Public</div>
+    <a href="/explore.html">🔎 Explore</a>
+    <a href="/">🏡 Home</a>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-header"><div><p class="eyebrow">Admin</p><h1>Overview</h1></div></div>
+
+    <div class="stat-row">
+      <div class="stat-tile"><div class="num" id="statPending">–</div><div class="label">Pending Review</div></div>
+      <div class="stat-tile"><div class="num" id="statApproved">–</div><div class="label">Approved</div></div>
+      <div class="stat-tile"><div class="num" id="statRejected">–</div><div class="label">Rejected</div></div>
+      <div class="stat-tile"><div class="num" id="statUsers">–</div><div class="label">Registered Users</div></div>
+    </div>
+
+    <div class="section-head"><h2 style="font-size:1.3rem">Needs your attention</h2><a href="/admin/queue.html" class="btn btn-ghost">Go to queue →</a></div>
+    <div id="pendingPreview"></div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="/js/supabaseClient.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/cards.js"></script>
+<script src="/js/guard.js"></script>
+<script src="/js/nav.js"></script>
+<script>
+(async function () {
+  await LG.requireAdmin();
+  try {
+    const stats = await LG.api('/api/admin/stats');
+    document.getElementById('statPending').textContent = stats.pending;
+    document.getElementById('statApproved').textContent = stats.approved;
+    document.getElementById('statRejected').textContent = stats.rejected;
+    document.getElementById('statUsers').textContent = stats.users;
+
+    const pending = await LG.api('/api/admin/posts?status=pending');
+    const wrap = document.getElementById('pendingPreview');
+    if (!pending.length) {
+      wrap.innerHTML = '<div class="empty-state"><div class="icon">✅</div><p>Nothing pending — you\'re all caught up.</p></div>';
+    } else {
+      wrap.innerHTML = pending
+        .slice(0, 5)
+        .map((p) => `<div class="review-card"><div class="thumb">${p.cover_image_url ? `<img src="${LG.escapeHtml(p.cover_image_url)}" />` : ''}</div><div><h3 style="margin-bottom:4px">${LG.escapeHtml(p.title)}</h3><div class="meta-line">${LG.escapeHtml(p.profiles?.display_name || 'Unknown')} · ${LG.TYPE_META[p.type]?.label || p.type}</div></div><a href="/admin/queue.html" class="btn btn-outline btn-sm">Review</a></div>`)
+        .join('');
+    }
+  } catch (err) {
+    document.getElementById('pendingPreview').innerHTML = `<div class="empty-state">${LG.escapeHtml(err.message)}</div>`;
+  }
+})();
+</script>
+</body>
+</html>

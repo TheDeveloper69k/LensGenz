@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<style>@view-transition { navigation: auto; }</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign Up — LensGenz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="/" class="brand">Lens<span>Genz</span></a>
+    <div></div>
+    <div class="nav-actions"><a href="/login.html" class="btn btn-ghost">Log in</a></div>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="wrap" style="max-width:480px">
+    <div class="center reveal" style="margin-bottom:28px">
+      <p class="eyebrow">Join the community</p>
+      <h1>Create your account</h1>
+    </div>
+    <form class="auth-card reveal" id="signupForm">
+      <div id="formMsg"></div>
+      <div class="field"><label>Display name</label><input type="text" name="displayName" required placeholder="How you'll appear as an author" /></div>
+      <div class="field"><label>Email</label><input type="email" name="email" required /></div>
+      <div class="field"><label>Password</label><input type="password" name="password" minlength="6" required /><p class="hint">At least 6 characters.</p></div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center" id="submitBtn">Create account</button>
+      <p class="center hint" style="margin-top:18px">Already have an account? <a href="/login.html" style="color:var(--rose-dark);font-weight:600">Log in</a></p>
+    </form>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="/js/supabaseClient.js"></script>
+<script src="/js/api.js"></script>
+<script>
+(function () {
+  const form = document.getElementById('signupForm');
+  const msg = document.getElementById('formMsg');
+  const btn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.innerHTML = '';
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Creating…';
+
+    const fd = new FormData(form);
+    const displayName = fd.get('displayName');
+    const email = fd.get('email');
+    const password = fd.get('password');
+
+    try {
+      await LG.ready;
+      const { data, error } = await LG.supabase.auth.signUp({ email, password });
+      if (error) throw error;
+
+      if (data.session) {
+        await LG.api('/api/profile/sync', { method: 'POST', body: { displayName } });
+        window.location.href = '/dashboard.html';
+      } else {
+        msg.innerHTML = '<div class="form-success">Account created — check your email to confirm, then log in.</div>';
+        btn.disabled = false;
+        btn.textContent = 'Create account';
+      }
+    } catch (err) {
+      msg.innerHTML = `<div class="form-error">${err.message || 'Something went wrong.'}</div>`;
+      btn.disabled = false;
+      btn.textContent = 'Create account';
+    }
+  });
+})();
+</script>
+</body>
+</html>

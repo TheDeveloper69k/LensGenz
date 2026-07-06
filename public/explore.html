@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<style>@view-transition { navigation: auto; }</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Explore — LensGenz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/style.css" />
+<style>
+  .filter-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+  .type-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .type-tabs button { border: 1px solid var(--border); background: var(--paper); padding: 9px 18px; border-radius: 999px; font-weight: 600; font-size: 0.85rem; cursor: pointer; color: var(--charcoal-soft); transition: all 0.2s var(--ease); }
+  .type-tabs button.active { background: var(--charcoal); color: var(--cream); border-color: var(--charcoal); }
+  .search-box { max-width: 280px; }
+  #loadMoreWrap { text-align: center; margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="/" class="brand">Lens<span>Genz</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/explore.html" class="active">Explore</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions" id="navActions"></div>
+  </div>
+</nav>
+
+<header class="section-tight">
+  <div class="wrap">
+    <p class="eyebrow reveal">The full archive</p>
+    <h1 class="reveal">Explore Everything Published</h1>
+    <p class="reveal" style="max-width:560px">Every article, gallery, and magazine issue that made it through review — browse by type or search for something specific.</p>
+  </div>
+</header>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="filter-bar">
+      <div class="type-tabs" id="typeTabs">
+        <button data-type="" class="active">All</button>
+        <button data-type="article">Articles</button>
+        <button data-type="gallery">Galleries</button>
+        <button data-type="magazine">Magazines</button>
+        <button data-type="other">Other</button>
+      </div>
+      <input type="search" id="searchInput" class="search-box" placeholder="Search titles…" />
+    </div>
+    <div class="grid grid-4" id="resultsGrid"></div>
+    <div id="loadMoreWrap"><button class="btn btn-outline" id="loadMoreBtn">Load more</button></div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-bottom">
+      <span>© 2026 LensGenz. Made by creators, for creators.</span>
+      <span>Have something to publish? <a href="/submit.html" style="color:var(--gold)">Submit your work →</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="/js/supabaseClient.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/cards.js"></script>
+<script src="/js/explore.js"></script>
+<script src="/js/nav.js"></script>
+</body>
+</html>
