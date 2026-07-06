@@ -33,6 +33,10 @@
       <p class="eyebrow reveal">A magazine written by its readers</p>
       <h1 class="reveal">Everyone has a story worth <em>publishing</em>.</h1>
       <p class="lede reveal">LensGenz is a community magazine — submit your articles, photo essays, and full PDF issues, and our editors review and publish the best of them for everyone to read.</p>
+      <form action="/explore.html" method="GET" class="reveal" style="position:relative;max-width:440px;margin-top:26px">
+        <input type="search" name="q" placeholder="Search gaming, cooking, travel…" style="padding:15px 100px 15px 20px;border-radius:999px;box-shadow:var(--shadow)" />
+        <button type="submit" class="btn btn-primary btn-sm" style="position:absolute;right:6px;top:6px;bottom:6px">Search</button>
+      </form>
       <div class="hero-actions reveal">
         <a href="/signup.html" class="btn btn-primary">Start Publishing</a>
         <a href="/explore.html" class="btn btn-outline">Explore Stories</a>
@@ -43,6 +47,18 @@
     </div>
   </div>
 </header>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Find your niche</p>
+        <h2>Browse by Category</h2>
+      </div>
+    </div>
+    <div class="category-grid reveal-stagger" id="categoryGrid"></div>
+  </div>
+</section>
 
 <section class="section-tight">
   <div class="wrap">
@@ -141,6 +157,7 @@
 <script src="/js/supabaseClient.js"></script>
 <script src="/js/api.js"></script>
 <script src="/js/cards.js"></script>
+<script src="/js/categories.js"></script>
 <script src="/js/home.js"></script>
 <script src="/js/nav.js"></script>
 </body>

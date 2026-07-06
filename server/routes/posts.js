@@ -69,8 +69,14 @@ router.get('/', async (req, res) => {
     .range(from, to);
 
   if (type) query = query.eq('type', type);
-  if (category) query = query.eq('category', category);
-  if (q) query = query.ilike('title', `%${q}%`);
+  if (category) query = query.ilike('category', category);
+  if (q) {
+    // Strip characters that have special meaning in PostgREST's or() filter
+    // syntax (comma separates conditions, parens group them) so user search
+    // input can't alter the query structure.
+    const safeQ = String(q).replace(/[,()]/g, '').trim();
+    if (safeQ) query = query.or(`title.ilike.%${safeQ}%,description.ilike.%${safeQ}%,category.ilike.%${safeQ}%`);
+  }
 
   const { data, error, count } = await query;
   if (error) return res.status(500).json({ error: error.message });

@@ -1,4 +1,14 @@
 (async function () {
+  const categoryGrid = document.getElementById('categoryGrid');
+  if (categoryGrid) {
+    categoryGrid.innerHTML = LG.CATEGORIES.map(
+      (c) => `<a class="category-tile" href="/explore.html?category=${encodeURIComponent(c.key)}" style="--tile-tint:${c.tint}">
+        <span class="glyph">${c.icon}</span>
+        <span class="name">${c.key}</span>
+      </a>`
+    ).join('');
+  }
+
   const articleGrid = document.getElementById('articleGrid');
   const galleryGrid = document.getElementById('galleryGrid');
   const magazineGrid = document.getElementById('magazineGrid');

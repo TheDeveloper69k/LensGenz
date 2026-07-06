@@ -29,7 +29,13 @@
     <form class="auth-card reveal" id="loginForm">
       <div id="formMsg"></div>
       <div class="field"><label>Email</label><input type="email" name="email" required /></div>
-      <div class="field"><label>Password</label><input type="password" name="password" required /></div>
+      <div class="field">
+        <label style="display:flex;justify-content:space-between;align-items:baseline">
+          <span>Password</span>
+          <a href="/forgot-password.html" style="font-size:0.82rem;font-weight:500;color:var(--rose-dark)">Forgot password?</a>
+        </label>
+        <input type="password" name="password" required />
+      </div>
       <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center" id="submitBtn">Log in</button>
       <p class="center hint" style="margin-top:18px">New here? <a href="/signup.html" style="color:var(--rose-dark);font-weight:600">Create an account</a></p>
     </form>
@@ -39,11 +45,16 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="/js/supabaseClient.js"></script>
 <script src="/js/api.js"></script>
+<script src="/js/nav.js"></script>
 <script>
 (function () {
   const form = document.getElementById('loginForm');
   const msg = document.getElementById('formMsg');
   const btn = document.getElementById('submitBtn');
+
+  if (new URLSearchParams(window.location.search).get('reset') === 'success') {
+    msg.innerHTML = '<div class="form-success">Your password has been updated — log in with your new password.</div>';
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();

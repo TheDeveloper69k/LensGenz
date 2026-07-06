@@ -18,6 +18,9 @@ to read.
 5. In **Authentication → Providers**, make sure **Email** is enabled. For local
    testing you can turn off "Confirm email" under Authentication → Settings so
    new accounts can log in immediately.
+6. In **Authentication → URL Configuration**, add `http://localhost:3000/reset-password.html`
+   (and your production URL's equivalent once deployed) to **Redirect URLs** —
+   otherwise the "forgot password" email link will be rejected by Supabase.
 
 ## 2. Configure environment variables
 
@@ -65,6 +68,9 @@ Log out and back in — the nav will now show an **Admin** link to
   public site (`/`, `/explore.html`).
 - Users manage their own submissions — including editing and resubmitting a
   rejected one — from `/dashboard.html`.
+- `/forgot-password.html` triggers Supabase's password-reset email; the link
+  it sends lands on `/reset-password.html`, which detects the recovery
+  session and lets the user set a new password.
 
 ## Project layout
 

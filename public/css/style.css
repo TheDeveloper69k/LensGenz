@@ -22,6 +22,21 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* ===== Per-category theme overrides (set via [data-cat-theme] on <html>) ===== */
+:root, html { transition: background 0.4s var(--ease); }
+html[data-cat-theme="gaming"] { --rose: #6f5bd0; --rose-dark: #5943b3; --gold: #6f5bd0; --cream-2: #eee9fb; }
+html[data-cat-theme="cooking"] { --rose: #d97a3f; --rose-dark: #b8622f; --gold: #d97a3f; --cream-2: #fbeee2; }
+html[data-cat-theme="travel"] { --rose: #2f8f8a; --rose-dark: #25716d; --gold: #2f8f8a; --cream-2: #e2f2f0; }
+html[data-cat-theme="lifestyle"] { --rose: #c1685a; --rose-dark: #a34e42; --gold: #c9a24b; --cream-2: #f1e8db; }
+html[data-cat-theme="photography"] { --rose: #3f6fa8; --rose-dark: #31578a; --gold: #3f6fa8; --cream-2: #e6eef7; }
+html[data-cat-theme="poetry"] { --rose: #a8508f; --rose-dark: #873f73; --gold: #a8508f; --cream-2: #f6e8f2; }
+html[data-cat-theme="culture"] { --rose: #b08a3e; --rose-dark: #93712f; --gold: #b08a3e; --cream-2: #f6efdf; }
+html[data-cat-theme="wellness"] { --rose: #4c7a4f; --rose-dark: #3c623f; --gold: #4c7a4f; --cream-2: #e7f1e6; }
+html[data-cat-theme="technology"] { --rose: #3d6ad8; --rose-dark: #2f54ab; --gold: #3d6ad8; --cream-2: #e5ecfb; }
+html[data-cat-theme="music"] { --rose: #c2445e; --rose-dark: #a1364c; --gold: #c2445e; --cream-2: #f8e6ea; }
+html[data-cat-theme="sports"] { --rose: #3f9142; --rose-dark: #317334; --gold: #3f9142; --cream-2: #e5f2e5; }
+html[data-cat-theme="fashion"] { --rose: #c1477f; --rose-dark: #9f3968; --gold: #c1477f; --cream-2: #f8e6ee; }
+
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
@@ -259,6 +274,41 @@ textarea { resize: vertical; min-height: 120px; }
 .reveal-stagger.in-view > *:nth-child(3) { animation-delay: 0.16s; }
 .reveal-stagger.in-view > *:nth-child(4) { animation-delay: 0.24s; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===== Category chips (Explore filters) ===== */
+.category-chips { display: flex; gap: 10px; flex-wrap: wrap; }
+.category-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  border: 1px solid var(--border); background: var(--paper);
+  padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 0.85rem;
+  cursor: pointer; color: var(--charcoal-soft); transition: background 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.category-chip:hover { transform: translateY(-1px); border-color: var(--chip-accent, var(--charcoal)); }
+.category-chip.active { background: var(--chip-accent, var(--charcoal)); border-color: var(--chip-accent, var(--charcoal)); color: #fff; }
+
+/* ===== Category browser (homepage) ===== */
+.category-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+.category-tile {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 24px 12px; border-radius: var(--radius); background: var(--tile-tint, var(--cream-2));
+  border: 1px solid var(--border); text-align: center;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.category-tile:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+.category-tile .glyph { font-size: 1.7rem; }
+.category-tile .name { font-weight: 600; font-size: 0.85rem; color: var(--charcoal); }
+@media (max-width: 900px) { .category-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 620px) { .category-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* ===== Site search (nav) ===== */
+.nav-search { position: relative; display: none; align-items: center; }
+.nav-search input {
+  width: 190px; padding: 9px 14px 9px 34px; border-radius: 999px; font-size: 0.85rem;
+  border: 1px solid var(--border); background: var(--cream-2);
+}
+.nav-search input:focus { background: var(--paper); width: 230px; }
+.nav-search .icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 0.85rem; opacity: 0.6; pointer-events: none; }
+@media (min-width: 861px) { .nav-search { display: flex; } }
 
 /* ===== Prose (rendered article body) ===== */
 .prose { font-size: 1.05rem; max-width: 720px; }

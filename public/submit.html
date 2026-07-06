@@ -62,7 +62,24 @@
 
       <div class="field"><label>Title</label><input type="text" name="title" required maxlength="140" /></div>
       <div class="field"><label>Short description</label><textarea name="description" maxlength="280" placeholder="One or two sentences that'll show up on cards and previews"></textarea></div>
-      <div class="field"><label>Category</label><input type="text" name="category" list="categoryList" placeholder="e.g. Lifestyle, Travel, Poetry" /><datalist id="categoryList"><option>Lifestyle</option><option>Travel</option><option>Photography</option><option>Poetry</option><option>Culture</option><option>Wellness</option></datalist></div>
+      <div class="field">
+        <label>Category</label>
+        <select name="category" required>
+          <option value="" disabled selected>Choose a category…</option>
+          <option>Gaming</option>
+          <option>Cooking</option>
+          <option>Travel</option>
+          <option>Lifestyle</option>
+          <option>Photography</option>
+          <option>Poetry</option>
+          <option>Culture</option>
+          <option>Wellness</option>
+          <option>Technology</option>
+          <option>Music</option>
+          <option>Sports</option>
+          <option>Fashion</option>
+        </select>
+      </div>
 
       <div class="field">
         <label>Cover image</label>

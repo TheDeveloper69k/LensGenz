@@ -23,30 +23,36 @@
     return (name || 'U').trim().split(/\s+/).slice(0, 2).map((w) => w[0]?.toUpperCase()).join('');
   }
 
+  function renderGuest() {
+    if (!actions) return;
+    actions.innerHTML = `
+      <a href="/login.html" class="btn btn-ghost">Log in</a>
+      <a href="/signup.html" class="btn btn-primary"><span class="label">Get Started</span></a>`;
+  }
+
   async function renderAuthState() {
     if (!actions) return;
-    await LG.ready;
-    if (!LG.session) {
-      actions.innerHTML = `
-        <a href="/login.html" class="btn btn-ghost">Log in</a>
-        <a href="/signup.html" class="btn btn-primary"><span class="label">Get Started</span></a>`;
-      return;
-    }
-    let profile = null;
+    // Show the guest buttons right away so the nav is never empty while we
+    // check auth state — if the check is slow or fails, this is what stays.
+    renderGuest();
+
     try {
-      profile = await LG.api('/api/profile/me');
-    } catch (e) {
-      profile = null;
+      await LG.ready;
+      if (!LG.session) return;
+
+      const profile = await LG.api('/api/profile/me');
+      const isAdmin = profile?.role === 'admin';
+      actions.innerHTML = `
+        ${isAdmin ? '<a href="/admin/index.html" class="btn btn-ghost"><span class="label">Admin</span></a>' : ''}
+        <a href="/dashboard.html" class="avatar-pill">
+          <span class="dot">${initials(profile?.display_name)}</span>
+          <span class="label">${profile?.display_name || 'Dashboard'}</span>
+        </a>
+        <button id="navSignOut" class="btn btn-ghost" type="button"><span class="label">Sign out</span></button>`;
+      document.getElementById('navSignOut')?.addEventListener('click', () => LG.signOut());
+    } catch (err) {
+      renderGuest();
     }
-    const isAdmin = profile?.role === 'admin';
-    actions.innerHTML = `
-      ${isAdmin ? '<a href="/admin/index.html" class="btn btn-ghost"><span class="label">Admin</span></a>' : ''}
-      <a href="/dashboard.html" class="avatar-pill">
-        <span class="dot">${initials(profile?.display_name)}</span>
-        <span class="label">${profile?.display_name || 'Dashboard'}</span>
-      </a>
-      <button id="navSignOut" class="btn btn-ghost" type="button"><span class="label">Sign out</span></button>`;
-    document.getElementById('navSignOut')?.addEventListener('click', () => LG.signOut());
   }
 
   renderAuthState();
